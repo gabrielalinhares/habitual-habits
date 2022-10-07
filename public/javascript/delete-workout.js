@@ -16,4 +16,4 @@ async function deleteWorkoutFormHandler(event) {
 }
 
 //update if class is different in form handler
-document.querySelector('.delete-post-btn').addEventListener('click', deleteWorkoutFormHandler);
+document.querySelector('.delete-workout-btn').addEventListener('click', deleteWorkoutFormHandler);

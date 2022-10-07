@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const sequelize = require("../../config/connection");
-const { Blog, User, Comment, Workout } = require("../../models");
+// const sequelize = require("../../config/connection");
+const { Blog, User, Comment} = require("../../models");
 const withAuth = require("../../utils/auth");
 
 router.get("/", (req, res) => {
@@ -50,7 +50,7 @@ router.get("/:id", (req, res) => {
   })
     .then((dbBlogData) => {
       if (!dbBlogData) {
-        res.status(404).json({ message: "No post found with this id" });
+        res.status(404).json({ message: "No blog found with this id" });
         return;
       }
       res.json(dbBlogData);

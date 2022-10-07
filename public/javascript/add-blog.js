@@ -24,4 +24,4 @@ async function newFormHandler(event) {
 }
 
 //update if class of form is different
-document.querySelector('.new-post-form').addEventListener('submit', newFormHandler);
+document.querySelector('.new-blog-form').addEventListener('submit', newFormHandler);

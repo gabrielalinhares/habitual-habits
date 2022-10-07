@@ -1,7 +1,7 @@
 async function commentFormHandler(event) {
     event.preventDefault();
 
-    //update if comment classes are different
+    //update if comment name are different
     const comment_text = document.querySelector('textarea[name="comment-body"]').value.trim();
     const blog_id = window.location.toString().split('/')[
         window.location.toString().split('/').length - 1
