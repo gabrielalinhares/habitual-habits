@@ -1,0 +1,35 @@
+async function workoutFormHandler(event) {
+    event.preventDefault();
+
+    //update if different ids used in handlebars
+    const exercise_type = document.querySelector('#exercise_type').value.trim();
+    const exercise_duration = document.querySelector('#exercise_duration').value.trim();
+    const calories_burned = document.querySelector('#calories_burned').value.trim();
+    const calories_consumed = document.querySelector('#calories_consumed').value.trim();
+    const current_weight = document.querySelector('#current_weight').value.trim();
+    
+    const response = await fetch(`/api/workouts`, {
+        method: 'POST',
+        body: JSON.stringify({
+            exercise_type,
+            exercise_duration,
+            calories_burned,
+            calories_consumed,
+            current_weight
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (response.ok) {
+        document.location.replace('/dashboard');
+    } else {
+        alert(response.statusText);
+    }
+
+
+}
+
+//update if different classes used in handlebars
+document.querySelector('.workout-form').addEventListener('submit', workoutFormHandler);
