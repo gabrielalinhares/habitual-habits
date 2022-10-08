@@ -9,6 +9,8 @@ router.get('/', withAuth, (req, res) => {
     Workout.findAll({
         where: {
             user_id: req.session.user_id
+            //user_id: 2
+            
 
         },
         attributes: [
@@ -22,8 +24,10 @@ router.get('/', withAuth, (req, res) => {
         ],
     })
         .then(dbWorkoutData => {
+            console.log(dbWorkoutData);
             const workout = dbWorkoutData.map(work => work.get({ plain: true }));
-            res.render('dashboard', { workout, loggedIn: true });
+            res.render('dashboard',{ workout, loggedIn: true }
+             );
         })
         .catch(err => {
             res.status(500).json(err);

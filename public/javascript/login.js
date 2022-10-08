@@ -2,8 +2,8 @@ async function loginFormHandler(event) {
     event.preventDefault();
 
     //update if different ids used in handlebars
-    const email = document.querySelector('#email-login').value.trim();
-    const password = document.querySelector('#password-login').value.trim();
+    const email = document.querySelector('#inputEmail').value.trim();
+    const password = document.querySelector('#inputPassword').value.trim();
 
     if (email && password) {
         const response = await fetch('/api/users/login', {
@@ -25,4 +25,4 @@ async function loginFormHandler(event) {
 
 
 //update if different classes used in handlebars
-document.querySelector('.login-form').addEventListener('submit', loginFormHandler);
+document.querySelector('.form-signin').addEventListener('submit', loginFormHandler);
