@@ -48,45 +48,80 @@ router.get('/', withAuth, (req, res) => {
         .catch(err => {
             res.status(500).json(err);
         });
+        Blog.findOne({
+            where: {
+                // user_id: req.session.user_id
+                id: Math.floor(Math.random() * 3)
+    
+            },
+            attributes: [
+                'id',
+                'title',
+                'blog_post',
+                'created_at',
+            ],
+            include: [
+                {
+                    model: Comment,
+                    attributes: ['id', 'comment_text', 'blog_id', 'user_id', 'created_at'],
+                    include: {
+                        model: User,
+                        attributes: ['username']
+                    }
+                },
+                {
+                    model: User,
+                    attributes: ['username']
+                }
+            ]
+        })
+            .then(dbPostData => {
+                const blogs = dbPostData.map(post => post.get({ plain: true }));
+                res.render('dashboard', { blogs, loggedIn: true });
+            })
+            .catch(err => {
+                res.status(500).json(err);
+            });
+
 });
 
 //Get one blog post for dashboard
-// router.get('/', withAuth, (req, res) => {
-//     Blog.findOne({
-//         where: {
-//             // user_id: req.session.user_id
-//             id: Math.floor(Math.random() * 3)
+router.get('/', withAuth, (req, res) => {
+    Blog.findOne({
+        where: {
+            // user_id: req.session.user_id
+            id: Math.floor(Math.random() * 3)
 
-//         },
-//         attributes: [
-//             'id',
-//             'title',
-//             'blog_post',
-//             'created_at',
-//         ],
-//         include: [
-//             {
-//                 model: Comment,
-//                 attributes: ['id', 'comment_text', 'blog_id', 'user_id', 'created_at'],
-//                 include: {
-//                     model: User,
-//                     attributes: ['username']
-//                 }
-//             },
-//             {
-//                 model: User,
-//                 attributes: ['username']
-//             }
-//         ]
-//     })
-//         .then(dbPostData => {
-//             const posts = dbPostData.map(post => post.get({ plain: true }));
-//             res.render('dashboard', { posts, loggedIn: true });
-//         })
-//         .catch(err => {
-//             res.status(500).json(err);
-//         });
-// });
+        },
+        attributes: [
+            'id',
+            'title',
+            'blog_post',
+            'created_at',
+        ],
+        include: [
+            {
+                model: Comment,
+                attributes: ['id', 'comment_text', 'blog_id', 'user_id', 'created_at'],
+                include: {
+                    model: User,
+                    attributes: ['username']
+                }
+            },
+            {
+                model: User,
+                attributes: ['username']
+            }
+        ]
+    })
+        .then(dbPostData => {
+            const blogs = dbPostData.map(post => post.get({ plain: true }));
+            res.render('dashboard', { blogs, loggedIn: true });
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+});
 
 
 module.exports = router;

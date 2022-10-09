@@ -20,3 +20,22 @@
   </li>
   {{/each}}
 </ol>
+<ol class="workout-list">
+  {{#each blogs as |blog|}}
+  <li>
+    <article class="workout">
+        {{!-- {{workout.user.username}}'s workout --}}
+      {{!-- <div class="exercise_type">
+        <a href="{{workout.exercise_type}}" target="_blank">{{workout.exercise_type}} exercise done for </a>
+        <span>({{workout.exercise_duration}})</span>
+      </div> --}}
+      <div class="meta">
+        {{blog.title}}title 
+        {{blog.blog_post}}  data
+        |
+        {{!-- <a href="/post/{{post.id}}">{{workout.user.username}}</a> --}}
+      </div>
+    </article>
+  </li>
+  {{/each}}
+</ol>
