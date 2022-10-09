@@ -18,8 +18,20 @@ main {
   padding: 2% 4%;
   background-color: rgb(rgb(163, 240, 217), green, blue);
 }
+header h2 a{
+  text-decoration: none;
+}
+#login a{
+  text-decoration: none;
+}
+#sign-up a{
+  text-decoration: none;
+}
+#logout a{
+  text-decoration: none;
+}
 
-body {
+/* body {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
@@ -27,7 +39,7 @@ body {
   padding-top: 40px;
   padding-bottom: 40px;
   background-color: #f5f5f5;
-}
+} */
 .wrapper {
   width: 100%;
   min-height: 100%;
@@ -67,12 +79,20 @@ body {
   border-top-right-radius: 0;
 }
 
-footer {
+/* footer {
   border-top: 1px solid #ccc;
   display: flex;
   justify-content: center;
   padding: 1%;
   font-size: 110%;
+} */
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px; /* Set the fixed height of the footer here */
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #f5f5f5;
 }
 
 #transition {
@@ -80,7 +100,7 @@ footer {
   -moz-animation: smooth 1s ease-in;
   -o-animation: smooth 1s ease-in;
   -ms-animation: smooth 1s ease-in; */
-  animation: smooth 0.8s ease-in;
+  animation: smooth 0s ease-in;
 }
 
 @keyframes smooth {
