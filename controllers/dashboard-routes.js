@@ -1,127 +1,84 @@
-const router = require('express').Router();
-const sequelize = require('../config/connection');
-const { Blog, User, Comment, Workout } = require('../models');
-const withAuth = require('../utils/auth');
-
+const router = require("express").Router();
+const sequelize = require("../config/connection");
+const { Blog, User, Comment, Workout } = require("../models");
+const withAuth = require("../utils/auth");
 
 //add workout routes-    /dashboard
 // router.get('/',withAuth, (req,res) => {
-    
+
 //     res.render('dashboard', {loggedIn: true})
 
 // } );
 
+var workouts;
+var blogs;
 
-router.get('/', withAuth, (req, res) => {
-    Workout.findAll({
-        where: {
-            user_id: req.session.user_id
-            // user_id: 2
-            
+router.get("/", withAuth, (req, res) => {
+  Workout.findAll({
+    where: {
+      user_id: req.session.user_id,
+      // user_id: 2
+    },
+    attributes: [
+      "id",
+      "exercise_type",
+      "exercise_duration",
+      "calories_burned",
+      "calories_consumed",
+      "current_weight",
+      "user_id",
+      // "username"
+    ],
+    include: [
+      {
+        model: User,
+        attributes: ["username"],
+      },
+    ],
+  }).then((dbWorkoutData) => {
+    //console.log(dbWorkoutData);
+    workouts = dbWorkoutData.map((work) => work.get({ plain: true }));
+    // res.render('dashboard', { workouts, loggedIn: true });
+    //console.log(workouts);
 
-        },
-        attributes: [
+    Blog.findAll({
+      where: {
+        // user_id: req.session.user_id
+        user_id: req.session.user_id,
+      },
+      attributes: ["id", "title", "blog_post", "created_at"],
+      include: [
+        {
+          model: Comment,
+          attributes: [
             "id",
-            "exercise_type",
-            "exercise_duration",
-            "calories_burned",
-            "calories_consumed",
-            "current_weight",
+            "comment_text",
+            "blog_id",
             "user_id",
-            // "username"
-        ],
-        include: [
-            {
-              model: User,
-              attributes: ["username"],
-            },
+            "created_at",
           ],
-    })
-        .then(dbWorkoutData => {
-            //console.log(dbWorkoutData);
-            const workouts = dbWorkoutData.map(work => work.get({ plain: true }));
-            console.log(workouts);
-            res.render('dashboard'
-             ,{ workouts, loggedIn: true }
-             );
-        })
-        .catch(err => {
-            res.status(500).json(err);
-        });
-        Blog.findOne({
-            where: {
-                // user_id: req.session.user_id
-                id: Math.floor(Math.random() * 3)
-    
-            },
-            attributes: [
-                'id',
-                'title',
-                'blog_post',
-                'created_at',
-            ],
-            include: [
-                {
-                    model: Comment,
-                    attributes: ['id', 'comment_text', 'blog_id', 'user_id', 'created_at'],
-                    include: {
-                        model: User,
-                        attributes: ['username']
-                    }
-                },
-                {
-                    model: User,
-                    attributes: ['username']
-                }
-            ]
-        })
-            .then(dbPostData => {
-                const blogs = dbPostData.map(post => post.get({ plain: true }));
-                res.render('dashboard', { blogs, loggedIn: true });
-            })
-            .catch(err => {
-                res.status(500).json(err);
-            });
-
-});
-
-//Get one blog post for dashboard
-router.get('/', withAuth, (req, res) => {
-    Blog.findOne({
-        where: {
-            // user_id: req.session.user_id
-            id: Math.floor(Math.random() * 3)
-
+          include: {
+            model: User,
+            attributes: ["username"],
+          },
         },
-        attributes: [
-            'id',
-            'title',
-            'blog_post',
-            'created_at',
-        ],
-        include: [
-            {
-                model: Comment,
-                attributes: ['id', 'comment_text', 'blog_id', 'user_id', 'created_at'],
-                include: {
-                    model: User,
-                    attributes: ['username']
-                }
-            },
-            {
-                model: User,
-                attributes: ['username']
-            }
-        ]
+        {
+          model: User,
+          attributes: ["username"],
+        },
+      ],
     })
-        .then(dbPostData => {
-            const blogs = dbPostData.map(post => post.get({ plain: true }));
-            res.render('dashboard', { blogs, loggedIn: true });
-        })
-        .catch(err => {
-            res.status(500).json(err);
-        });
-});
 
+      .then((dbPostData) => {
+        blogs = dbPostData.map((blog) => blog.get({ plain: true }));
+        console.log(workouts);
+        console.log("blogs are ", blogs);
+        res.render("dashboard", { workouts, blogs, loggedIn: true });
+      })
+      .catch((err) => {
+        res.status(500).json(err);
+      });
+  });
+});
 
 module.exports = router;
