@@ -5,42 +5,50 @@ const withAuth = require('../utils/auth');
 
 
 //add workout routes-    /dashboard
-router.get('/',withAuth, (req,res) => {
+// router.get('/',withAuth, (req,res) => {
     
-    res.render('dashboard', {loggedIn: true})
+//     res.render('dashboard', {loggedIn: true})
 
-} );
+// } );
 
 
-// router.get('/', withAuth, (req, res) => {
-//     Workout.findAll({
-//         where: {
-//             // user_id: req.session.user_id
-//             user_id: 2
+router.get('/', withAuth, (req, res) => {
+    Workout.findAll({
+        where: {
+            user_id: req.session.user_id
+            // user_id: 2
             
 
-//         },
-//         attributes: [
-//             "id",
-//             "exercise_type",
-//             "exercise_duration",
-//             "calories_burned",
-//             "calories_consumed",
-//             "current_weight",
-//             "user_id",
-//         ],
-//     })
-//         .then(dbWorkoutData => {
-//             console.log(dbWorkoutData);
-//             const workout = dbWorkoutData.map(work => work.get({ plain: true }));
-//             res.render('homepage'
-//             // ,{ workout, loggedIn: true }
-//              );
-//         })
-//         .catch(err => {
-//             res.status(500).json(err);
-//         });
-// });
+        },
+        attributes: [
+            "id",
+            "exercise_type",
+            "exercise_duration",
+            "calories_burned",
+            "calories_consumed",
+            "current_weight",
+            "user_id",
+            // "username"
+        ],
+        include: [
+            {
+              model: User,
+              attributes: ["username"],
+            },
+          ],
+    })
+        .then(dbWorkoutData => {
+            //console.log(dbWorkoutData);
+            const workouts = dbWorkoutData.map(work => work.get({ plain: true }));
+            console.log(workouts);
+            res.render('dashboard'
+             ,{ workouts, loggedIn: true }
+             );
+        })
+        .catch(err => {
+            res.status(500).json(err);
+        });
+});
 
 //Get one blog post for dashboard
 // router.get('/', withAuth, (req, res) => {

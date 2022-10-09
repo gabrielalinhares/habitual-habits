@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const { Router } = require("express");
-const { Workout } = require("../../models");
+const { User, Workout } = require("../../models");
 const withAuth = require("../../utils/auth");
 
 router.get("/", (req, res) => {
@@ -25,6 +25,7 @@ router.get("/:id", (req, res) => {
       "calories_consumed",
       "current_weight",
       "user_id",
+      // "username"
     ],
     include: [
       {

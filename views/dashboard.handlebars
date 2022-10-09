@@ -1,1 +1,22 @@
 <div>testing dashboard</div>
+
+<ol class="workout-list">
+  {{#each workouts as |workout|}}
+  <li>
+    <article class="workout">
+        {{workout.user.username}}'s workout
+      <div class="exercise_type">
+        <a href="{{workout.exercise_type}}" target="_blank">{{workout.exercise_type}} exercise done for </a>
+        <span>({{workout.exercise_duration}})</span>
+      </div>
+      <div class="meta">
+        {{workout.calories_burned}} calories burned
+        {{workout.calories_consumed}} calories consumed
+        at {{workout.current_weight}} body weight
+        |
+        {{!-- <a href="/post/{{post.id}}">{{workout.user.username}}</a> --}}
+      </div>
+    </article>
+  </li>
+  {{/each}}
+</ol>
