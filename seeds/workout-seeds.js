@@ -69,6 +69,6 @@ const WorkoutData = [
 
 ];
 
-const seedWorkouts = () => Post.bulkCreate(WorkoutData);
+const seedWorkouts = () => Workout.bulkCreate(WorkoutData);
 
 module.exports = seedWorkouts;
