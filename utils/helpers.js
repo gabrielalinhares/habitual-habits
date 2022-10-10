@@ -6,7 +6,7 @@ module.exports = {
     },
     format_blog: blog => {
         return blog
-            .slice(0, 300)
+            .slice(0, 3)
     },
     format_plural: (word, amount) => {
         if (amount !== 1) {

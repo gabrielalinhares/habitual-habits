@@ -2,11 +2,12 @@ async function workoutFormHandler(event) {
     event.preventDefault();
 
     //update if different ids used in handlebars
-    const exercise_type = document.querySelector('#exercise_type').value.trim();
-    const exercise_duration = document.querySelector('#exercise_duration').value.trim();
-    const calories_burned = document.querySelector('#calories_burned').value.trim();
-    const calories_consumed = document.querySelector('#calories_consumed').value.trim();
-    const current_weight = document.querySelector('#current_weight').value.trim();
+    // const exercise_type = document.querySelector('#exercise_type').value.trim();
+    const exercise_type = document.querySelector('input[name="exercise_type"]').value.trim();
+    const exercise_duration = document.querySelector('input[name="exercise_duration"]').value.trim();
+    const calories_burned = document.querySelector('input[name="calories_burned"]').value.trim();
+    const calories_consumed = document.querySelector('input[name="calories_consumed"]').value.trim();
+    const current_weight = document.querySelector('input[name="current_weight"]').value.trim();
     
     const response = await fetch(`/api/workouts`, {
         method: 'POST',
@@ -32,4 +33,4 @@ async function workoutFormHandler(event) {
 }
 
 //update if different classes used in handlebars
-document.querySelector('.workout-form').addEventListener('submit', workoutFormHandler);
+document.querySelector('#workout-form').addEventListener('submit', workoutFormHandler);

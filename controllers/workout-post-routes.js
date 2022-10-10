@@ -1,9 +1,42 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
-const { Workout } = require('../models');
+const { User, Workout } = require('../models');
 const withAuth = require('../utils/auth');
 
-router.get('/edit-workouts/:id', withAuth, (req, res) => {
+router.get("/", withAuth, (req, res) => {
+    // expects {title: 'Taskmaster goes public!', blog_post: 'https://taskmaster.com/press', user_id: 1}
+    Workout.findAll({
+        user_id: req.session.user_id,
+        attributes: [
+            'id',
+            'exercise_type',
+            'exercise_duration',
+            'calories_burned',
+            'calories_consumed',
+            'current_weight',
+            'created_at',
+            "user_id"
+        ],
+        include: [
+            {
+                model: User,
+                attributes: ["username"],
+            },
+        ],
+    })
+        .then((dbWorkoutData) => {
+            const workouts = dbWorkoutData.map((workout) => workout.get({ plain: true }));
+            res.render("workout", { workouts, loggedIn: true })
+            console.log(workouts)
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+    // res.send("single-blog")
+});
+
+router.get('/:id', withAuth, (req, res) => {
     Workout.findByPk(req.params.id, {
         attributes: [
             'id',

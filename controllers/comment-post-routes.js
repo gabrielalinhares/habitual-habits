@@ -6,7 +6,8 @@ const withAuth = require('../utils/auth');
 
 router.get("/", (req, res) => {
     Comment.findAll({
-        user_id: req.session.user_id,
+        where: {
+        blog_id: req.params.blog_id},
         attributes: ["id", "comment_text", "blog_id", "user_id", "createdAt"],
         include: [
             {

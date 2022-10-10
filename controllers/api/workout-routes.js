@@ -55,8 +55,8 @@ router.post("/", withAuth, (req, res) => {
     calories_burned: req.body.calories_burned,
     calories_consumed: req.body.calories_consumed,
     current_weight: req.body.current_weight,
-    //user_id: req.session.user_id,
-    user_id: req.body.user_id
+    user_id: req.session.user_id,
+    //user_id: req.body.user_id
   })
     .then((dbWorkoutData) => res.json(dbWorkoutData))
     .catch((err) => {

@@ -1,0 +1,19 @@
+<section>
+            <h2>All Blogs</h2>
+            {{#each blogs as |blog|}}
+            {{!-- {{> post-blog-full blog}} --}}
+            <article>
+    <div class="card-body">
+        <a class="card-title" href="/view-blogs/{{id}}">{{title}}</a><br><br>
+        <div>{{format_blog blog_post}}</div>
+        <div class="card-subtitle mb-2 text-muted"><br>
+            by {{user.username}} on {{format_date createdAt}}<br>
+            |
+            <br>{{comments.length}} {{format_plural "comment" comments.length}}
+        </div>
+    </div>
+</article>
+            {{!-- <a href="/edit-blogs/{{blog.id}}" class="edit-link btn">Edit post</a> --}}
+            {{/each}}
+        </section>
+<script src="/utils/helpers.js"></script>

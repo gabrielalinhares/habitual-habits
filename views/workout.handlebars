@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+        <section class="col-6">
+            <h2>Create New Workout</h2>
+
+            <form class="workout-form" id="workout-form">
+                <div>
+                    <label for="exercise_type">exercise_type</label><br>
+                    <input type="text" id="exercise_type" name="exercise_type" /><br><br>
+                </div>
+                <div>
+                    <label for="exercise_duration">exercise_duration</label><br>
+                    <input type="text" id="exercise_duration" name="exercise_duration">
+                </div>
+                <div>
+                    <label for="calories_burned">calories_burned</label><br>
+                    <input type="text" id="calories_burned" name="calories_burned">
+                </div>
+                <div>
+                    <label for="calories_consumed">calories_consumed</label><br>
+                    <input type="text" id="calories_consumed" name="calories_consumed">
+                </div>
+                <div>
+                    <label for="current_weight">current_weight</label><br>
+                    <input type="text" id="current_weight" name="current_weight">
+                </div>
+                <button type="submit" class="btn">Create Workout</button><br>
+            </form>
+        </section><br>
+
+        <section>
+            <h2>Your Workouts</h2>
+            {{#each workouts as |workout|}}
+            {{!-- {{> post-blog-full blog}} --}}
+            <article>
+    <div class="card-body">
+        <a class="card-title" href="/edit-workouts/{{id}}">{{title}}</a><br><br>
+        <div>{{blog_post}}</div>
+        <div class="card-subtitle mb-2 text-muted"><br>
+            by {{user.username}} on {{format_date createdAt}}
+            |
+            <br><a href="/edit-blogs/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
+        </div>
+    </div>
+            </article>
+            <a href="/edit-blogs/{{blog.id}}" class="edit-link btn">Edit post</a>
+            {{/each}}
+        </section>
+    </div>
+</div>
+
+<script src="/javascript/add-workout.js"></script>
