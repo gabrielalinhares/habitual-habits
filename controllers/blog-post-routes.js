@@ -34,8 +34,9 @@ router.get("/", withAuth, (req, res) => {
     // res.send("single-blog")
 });
 
-router.get('/edit-blogs/:id', withAuth, (req, res) => {
-    Blog.findByPk(req.params.id, {
+router.get('/:id', withAuth, (req, res) => {
+    Blog.findOne({
+        where: { user_id: req.session.user_id },
         attributes: [
             'id',
             'title',
@@ -61,7 +62,7 @@ router.get('/edit-blogs/:id', withAuth, (req, res) => {
             if (dbBlogData) {
                 const blog = dbBlogData.get({ plain: true });
 
-                res.render('single-blog', {
+                res.render('edit-blog', {
                     blog,
                     loggedIn: true
                 });
@@ -73,5 +74,26 @@ router.get('/edit-blogs/:id', withAuth, (req, res) => {
             res.status(500).json(err);
         });
 });
+
+
+// router.delete('/:id', withAuth, (req, res) => {
+//     console.log('id', req.params.id);
+//     Blog.destroy({
+//         where: {
+//             id: req.params.id
+//         }
+//     })
+//         .then(dbBlogData => {
+//             if (!dbBlogData) {
+//                 res.status(404).json({ message: 'No blog found' });
+//                 return;
+//             }
+//             res.json(dbBlogData);
+//         })
+//         .catch(err => {
+//             res.status(500).json(err);
+//         });
+// });
+
 
 module.exports = router;

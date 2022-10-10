@@ -9,11 +9,11 @@ async function deleteFormHandler(event) {
     });
 
     if (response.ok) {
-        document.location.replace('/dashboard/');
+        document.location.replace('/edit-blogs/');
     } else {
         alert(response.statusText);
     }
 }
 
 //update if class is different in form handler
-document.querySelector('.delete-post-btn').addEventListener('click', deleteFormHandler);
+document.querySelector('#delete-blog-btn').addEventListener('click', deleteFormHandler);

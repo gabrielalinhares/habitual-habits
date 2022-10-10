@@ -77,6 +77,7 @@ router.post("/", withAuth, (req, res) => {
 });
 
 router.put("/:id", withAuth, async (req, res) => {
+  console.log(req.params.id)
   await Blog.update(
     {
       title: req.body.title,
@@ -101,7 +102,7 @@ router.put("/:id", withAuth, async (req, res) => {
 });
 
 router.delete("/:id", withAuth, (req, res) => {
-  console.log("id", req.params.id);
+  console.log("id:", req.params.id);
   Blog.destroy({
     where: {
       id: req.params.id,

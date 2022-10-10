@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Comment } = require("../../models");
+const { Comment, User } = require("../../models");
 const withAuth = require("../../utils/auth");
 
 router.get("/", (req, res) => {
@@ -11,15 +11,18 @@ router.get("/", (req, res) => {
     });
 });
 
+
 router.post("/", withAuth, (req, res) => {
   // expects => {comment_text: "This is the comment", user_id: 1, post_id: 2}
   Comment.create({
     comment_text: req.body.comment_text,
     // user_id: req.session.user_id,
-    user_id:req.body.user_id,
+    user_id:req.session.user_id,
     blog_id: req.body.blog_id,
   })
-    .then((dbCommentData) => res.json(dbCommentData))
+    .then((dbCommentData) =>{
+      console.log(dbCommentData)
+      res.json(dbCommentData)})
     .catch((err) => {
       console.log(err);
       res.status(400).json(err);

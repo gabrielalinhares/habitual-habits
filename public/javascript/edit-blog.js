@@ -19,10 +19,11 @@ async function editFormHandler(event) {
     });
 
     if (response.ok) {
-        document.location.replace('/dashboard/');
+        document.location.replace('/edit-blogs/');
+        console.log()
     } else {
         alert(response.statusText);
     }
 }
 //update classes if changed in handlebars
-document.querySelector('.edit-post-form').addEventListener('submit', editFormHandler);
+document.querySelector('#save-blog-btn').addEventListener('click', editFormHandler);

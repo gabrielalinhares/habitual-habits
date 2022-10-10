@@ -2,7 +2,7 @@ async function commentFormHandler(event) {
     event.preventDefault();
 
     //update if comment name are different
-    const comment_text = document.querySelector('textarea[name="comment-body"]').value.trim();
+    const comment_text = document.querySelector('textarea[name="comment-body"]').value;
     const blog_id = window.location.toString().split('/')[
         window.location.toString().split('/').length - 1
     ];
@@ -28,4 +28,4 @@ async function commentFormHandler(event) {
 }
 
 //update if comment classes are different
-document.querySelector('.comment-form').addEventListener('submit', commentFormHandler);
+document.querySelector('#comment-submit').addEventListener('click', commentFormHandler);
