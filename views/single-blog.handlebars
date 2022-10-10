@@ -1,1 +1,40 @@
-<Nothing yet>
+<div class="container">
+    <div class="row">
+        <section class="col-6">
+            <h2>Create New Blog</h2>
+
+            <form class="new-blog-form">
+                <div>
+                    <label for="blog-title">Title</label><br>
+                    <input type="text" id="blog-title" name="blog-title" /><br><br>
+                </div>
+                <div>
+                    <label for="blog-post">Body</label><br>
+                    <textarea id="blog-post" name="blog-post"></textarea>
+                </div>
+                <button type="submit" class="btn">Create</button><br>
+            </form>
+        </section><br>
+
+        <section>
+            <h2>Your Blogs</h2>
+            {{#each blogs as |blog|}}
+            {{!-- {{> post-blog-full blog}} --}}
+            <article>
+    <div class="card-body">
+        <a class="card-title" href="edit-blogs/{{id}}">{{title}}</a><br><br>
+        <div>{{blog_post}}</div>
+        <div class="card-subtitle mb-2 text-muted"><br>
+            by {{user.username}} on {{format_date createdAt}}
+            |
+            <br><a href="/edit-blogs/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
+        </div>
+    </div>
+</article>
+            <a href="/edit-blogs/{{blog.id}}" class="edit-link btn">Edit post</a>
+            {{/each}}
+        </section>
+    </div>
+</div>
+
+<script src="/javascript/add-blog.js"></script>

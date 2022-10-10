@@ -17,7 +17,7 @@ async function newFormHandler(event) {
     });
 
     if (response.ok) {
-        document.location.replace('/dashboard');
+        document.location.replace('/edit-blogs');
     } else {
         alert(response.statusText);
     }
