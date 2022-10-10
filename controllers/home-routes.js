@@ -30,7 +30,7 @@ router.get('/sign-up', (req, res) => {
 router.get('/blogs/:id', (req, res) => {
     Blog.findOne({
         where: {
-            id: req.params.id
+            id: Math.floor(Math.random()*5 + 1)
         },
         attributes: [
             'id',

@@ -3,7 +3,7 @@ const sequelize = require('../config/connection');
 const { Blog, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
-router.get("/", (req, res) => {
+router.get("/", withAuth, (req, res) => {
     // expects {title: 'Taskmaster goes public!', blog_post: 'https://taskmaster.com/press', user_id: 1}
     Blog.findAll({
         include: [
@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
     })
         .then((dbBlogData) => {
             const blogs = dbBlogData.map((blog) => blog.get({ plain: true }));
-            res.render("view-blogs", { blogs})
+            res.render("view-blogs", { blogs, loggedIn: true})
             // console.log(blogs)
         })
         .catch((err) => {
@@ -33,7 +33,7 @@ router.get("/", (req, res) => {
     // res.send("single-blog")
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', withAuth, (req, res) => {
     Blog.findAll({
         where: { id: req.params.id },
         attributes: [
@@ -60,9 +60,9 @@ router.get('/:id', (req, res) => {
         .then(dbBlogData => {
             if (dbBlogData) {
                 const blogs = dbBlogData.map((blog) => blog.get({ plain: true }));
-                // console.log(blogs);
+                 console.log(blogs);
 
-                res.render('view-full-blog', {blogs                
+                res.render('view-full-blog', {blogs, loggedIn:true             
                 });
             } else {
                 res.status(404).end();

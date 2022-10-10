@@ -35,7 +35,7 @@ router.get("/", withAuth, (req, res) => {
     // res.send("single-blog")
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', withAuth,(req, res) => {
     Blog.findAll({
         where: { id: req.params.id },
         attributes: [
@@ -64,7 +64,7 @@ router.get('/:id', (req, res) => {
                 const blogs = dbBlogData.map((blog) => blog.get({ plain: true }));
                 console.log("check this", blogs)
                 res.render('edit-blog', {
-                    blogs,
+                    blogs, loggedIn:true
                 });
             } else {
                 res.status(404).end();

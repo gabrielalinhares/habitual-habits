@@ -4,16 +4,17 @@
             <h2>
                 Edit Post
             </h2>
+            {{#each blogs as |blog|}}
             <form class="edit-blog-form">
                 <div>
-                    <input id="edit-blog-title" name="blog-title" type="text" value="{{blogs.title}}" /><br>
-                    <textarea id="edit-blog-post" name="blog-post" type="text" value="{{blogs.blog_post}}"></textarea>
+                    <input id="edit-blog-title" name="blog-title" type="text" value="{{blog.title}}" /><br>
+                    <textarea id="edit-blog-post" name="blog-post" type="text" value="{{blog.blog_post}}"></textarea>
                 </div>
                 <div>
                     by you on {{format_date blog.createdAt}}
                     |
-                    <a href="/edit-blogs/{{blogs.id}}">{{blogs.comments.length}} {{format_plural "comment"
-                        blogs.comments.length}}</a>
+                    <a href="/edit-blogs/{{blog.id}}">{{blog.comments.length}} {{format_plural "comment"
+                        blog.comments.length}}</a>
                 </div>
                 <button type="button" id="save-blog-btn"class="blog-btn btn">Save blog</button>
                 <button type="button" id="delete-blog-btn" class="blog-btn btn">Delete blog</button>
@@ -30,10 +31,9 @@
             </div>
         </form>
 
-{{#each blogs.comments as |comment|}}
+{{#each blog.comments as |comment|}}
     <section class="comment">
         <div class="meta">
-            <h3>commmeneets</h3>
             {{user.username}} on {{format_date createdAt}}
             {{comment_text}}
         </div>
@@ -41,6 +41,7 @@
 
     </div>
 </div>
+{{/each}}
 {{/each}}
 
 

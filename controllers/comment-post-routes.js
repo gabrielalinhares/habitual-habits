@@ -7,7 +7,7 @@ const withAuth = require('../utils/auth');
 router.get("/", (req, res) => {
     Comment.findAll({
         where: {
-        blog_id: req.params.blog_id},
+        blog_id:req.params.id},
         attributes: ["id", "comment_text", "blog_id", "user_id", "createdAt"],
         include: [
             {
@@ -24,8 +24,8 @@ router.get("/", (req, res) => {
     })
         .then((dbCommentData) => {
             const comments = dbCommentData.map((comment) => comment.get({ plain: true }));
-            res.render("edit-blog", { comments, loggedIn: true })
-            console.log(comments)
+            res.render("edit-blog", { comments })
+            console.log("comments are" , comments)
         })
         .catch((err) => {
             console.log(err);
