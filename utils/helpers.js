@@ -6,7 +6,11 @@ module.exports = {
     },
     format_blog: blog => {
         return blog
-            .slice(0, 3)
+            .slice(0, 300)+"..."
+    },
+    format_blog2: blog => {
+        return blog
+            .slice(0, 100)+"..."
     },
     format_plural: (word, amount) => {
         if (amount !== 1) {

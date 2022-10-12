@@ -5,23 +5,23 @@
 
             <form class="workout-form" id="workout-form">
                 <div>
-                    <label for="exercise_type">exercise_type</label><br>
+                    <label for="exercise_type">Type of Exercise</label><br>
                     <input type="text" id="exercise_type" name="exercise_type" /><br><br>
                 </div>
                 <div>
-                    <label for="exercise_duration">exercise_duration</label><br>
+                    <label for="exercise_duration">Duration of Exercise in Minutes</label><br>
                     <input type="text" id="exercise_duration" name="exercise_duration">
                 </div>
                 <div>
-                    <label for="calories_burned">calories_burned</label><br>
+                    <label for="calories_burned">Calories Burned</label><br>
                     <input type="text" id="calories_burned" name="calories_burned">
                 </div>
                 <div>
-                    <label for="calories_consumed">calories_consumed</label><br>
+                    <label for="calories_consumed">Calories Consumed</label><br>
                     <input type="text" id="calories_consumed" name="calories_consumed">
                 </div>
                 <div>
-                    <label for="current_weight">current_weight</label><br>
+                    <label for="current_weight">Current Weight</label><br>
                     <input type="text" id="current_weight" name="current_weight">
                 </div>
                 <button type="submit" class="btn">Create Workout</button><br>
@@ -34,11 +34,15 @@
             {{!-- {{> post-blog-full blog}} --}}
             <article>
     <div class="card-body">
-        <a class="card-title" href="/edit-workouts/{{id}}">{{title}}</a><br><br>
-        <div class="card-subtitle mb-2 text-muted"><br>
-            by {{user.username}} on {{format_date createdAt}}
-            |
-            
+        <div class="card-subtitle mb-2 text-muted">
+           <strong>Date:</strong> {{format_date created_at}}
+            <ul>
+            <li style="list-style: none"><strong>Type: </strong>{{exercise_type}}</li>
+            <li style="list-style: none"><strong>Duration: </strong>{{exercise_duration}} min.</li>
+            <li style="list-style: none"><strong>Calories Burned: </strong>{{calories_burned}}</li>
+            <li style="list-style: none"><strong>Calories Consumed: </strong>{{calories_consumed}}</li>
+            <li style="list-style: none"><strong>Current Weight: </strong>{{current_weight}}</li>
+            </ul>
         </div>
     </div>
             </article>

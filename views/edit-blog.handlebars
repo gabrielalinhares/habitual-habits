@@ -1,17 +1,17 @@
 <div class="container">
     <div class="row">
-        <article class="col-8">
+        <article class="col">
             <h2>
-                Edit Post
+                Edit Blog
             </h2>
             {{#each blogs as |blog|}}
             <form class="edit-blog-form">
                 <div>
-                    <input id="edit-blog-title" name="blog-title" type="text" value="{{blog.title}}" /><br>
-                    <textarea id="edit-blog-post" name="blog-post" type="text" value="{{blog.blog_post}}"></textarea>
+                    <input style="width: 500px" id="edit-blog-title" name="blog-title" type="text" value="{{blog.title}}" /><br>
+                    <textarea style="width: 500px; height:300px"id="edit-blog-post" name="blog-post" type="text">{{blog.blog_post}}</textarea>
                 </div>
                 <div>
-                    by you on {{format_date blog.createdAt}}
+                    by you on {{format_date created_at}}
                     |
                     <a href="/edit-blogs/{{blog.id}}">{{blog.comments.length}} {{format_plural "comment"
                         blog.comments.length}}</a>
@@ -19,11 +19,11 @@
                 <button type="button" id="save-blog-btn"class="blog-btn btn">Save blog</button>
                 <button type="button" id="delete-blog-btn" class="blog-btn btn">Delete blog</button>
             </form>
-        </article>
+
 
         <form class="comment-form col-4">
             <div>
-                <textarea name="comment-body"></textarea>
+                <textarea style="width: 500px" name="comment-body"></textarea>
             </div>
 
             <div>
@@ -43,7 +43,7 @@
 </div>
 {{/each}}
 {{/each}}
-
+        </article>
 
 <script src="/javascript/edit-blog.js"></script>
 <script src="/javascript/delete-blog.js"></script>
