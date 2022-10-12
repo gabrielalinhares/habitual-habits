@@ -71,4 +71,10 @@ router.get('/blogs/:id', (req, res) => {
         });
 });
 
+router.get('/workout-tracker-info', (req, res) => {
+
+    res.render('workout-tracker-info');
+});
+
+
 module.exports = router;

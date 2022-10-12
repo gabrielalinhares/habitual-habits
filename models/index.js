@@ -32,15 +32,14 @@ Workout.belongsTo(User, {
   foreignKey: "user_id",
   // onDelete: "SET NULL",
 });
-
+Blog.hasMany(Comment, {
+  foreignKey: "blog_id",
+  // onDelete: "SET NULL"
+});
 Comment.belongsTo(Blog, {
   foreignKey: "blog_id",
   // onDelete: "SET NULL",
 });
-Blog.hasMany(Comment, {
-    foreignKey: "blog_id",
-    // onDelete: "SET NULL"
-  });
 
 
 module.exports = {User, Blog, Comment, Workout};
